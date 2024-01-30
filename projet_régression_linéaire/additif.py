@@ -9,6 +9,8 @@ from math import *
 class Additif:
     """
     ici j'entraine mon modèle additif 
+
+    """'
     def __init__(self, data_preparation_object):
         self.data_preparation_object = data_preparation_object
         self.model = LinearRegression()
