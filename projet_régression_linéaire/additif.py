@@ -7,6 +7,8 @@ import statsmodels.api as sm
 from math import *
 
 class Additif:
+    """
+    ici j'entraine mon modèle additif 
     def __init__(self, data_preparation_object):
         self.data_preparation_object = data_preparation_object
         self.model = LinearRegression()
@@ -28,14 +30,19 @@ class Additif:
 
     def show_model_predictions(self, y_train_predicted, y_test_predicted):
         conf = 0.95
-
-        # Crée un modèle de régression linéaire ordinaire (OLS) à l'aide de la bibliothèque statsmodels. 
         model = sm.OLS(self.data_preparation_object.y_train, sm.add_constant(self.data_preparation_object.x_train))
         results = model.fit()
         pred_int = results.get_prediction(sm.add_constant(self.data_preparation_object.x_test)).conf_int()
         min_interval = pred_int[:, 0]
         max_interval = pred_int[:, 1]
-
+        """
+        j'ai essyer une autre façon mais celle ci ne fonctionne pas pour le momment
+        resid_std = np.sqrt(np.var(results.resid))
+        n = len(y_test_predicted)
+        interval = t.ppf(1 - (1 - conf) / 2, n - 2) * resid_std / np.sqrt(1/n + (np.mean(self.data_preparation_object.x_test) - np.mean(self.data_preparation_object.x_train))**2 / np.sum((self.data_preparation_object.x_train - np.mean(self.data_preparation_object.x_train))**2))
+        min_interval = y_test_predicted - interval
+        max_interval = y_test_predicted + interval
+        """
 
         # Plot des prédictions et de l'intervalle de confiance
         plt.figure(figsize=(15, 6)) 
