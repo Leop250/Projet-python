@@ -9,21 +9,6 @@ from math import *
 class DataPreparation:
     def __init__(self, dataset_df):
         self.dataset_df = dataset_df
-        """
-        Cette classe prend en entrée un chemin de fichier csv.
-        Elle split le jeu de donnée en 2 bases 
-        + une train 75 %
-        + une test 25 %
-        Ce 2 bases, la classe va les splits en 2 
-
-        + un vecteur x (qui contient les indexs temporels)
-        + un vecteur y (qui contient les valeurs à prédire)
-        En tout cette va extraire 4 arrays.
-        x_train
-        y_train
-        x_test
-        y_test
-        """
 
         self.dataset_df = pd.read_csv('vente_maillots_de_bain.csv', encoding='ISO-8859-1')
 
@@ -45,9 +30,9 @@ class DataPreparation:
         dataset_test_df = self.dataset_df.iloc[int(number_of_rows * 0.75):]
 
         self.x_train = dataset_train_df.iloc[:, 3:14].values
-        #sous dataframe
+       
         self.y_train = dataset_train_df[['Sales']].values
 
         self.x_test = dataset_test_df.iloc[:, 3:14].values
-        #sous dataframe on obtien un array d'array2
+        
         self.y_test = dataset_test_df[['Sales']].values
