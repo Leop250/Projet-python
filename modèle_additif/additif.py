@@ -31,16 +31,16 @@ class Additif:
     def show_model_predictions(self, y_train_predicted, y_test_predicted):
         conf = 0.95
 
-        # Calcul de l'intervalle de confiance pour le jeu de test
+       
         residuals = y_test_predicted - self.data_preparation_object.y_test
         std_residuals = np.std(residuals)
         n = len(y_test_predicted)
-        margin_of_error = 1.96 * (std_residuals / np.sqrt(n))  # 1.96 pour un intervalle de confiance de 95%
+        interval = 1.96 * (std_residuals / np.sqrt(n))  # 1.96 pour un intervalle de confiance de 95%
 
-        min_interval = (y_test_predicted - margin_of_error).ravel()
-        max_interval = (y_test_predicted + margin_of_error).ravel()
+        min_interval = (y_test_predicted - interval).ravel()
+        max_interval = (y_test_predicted + interval).ravel()
 
-        # Plot des prédictions et de l'intervalle de confiance
+        
         plt.figure(figsize=(15, 6))
         plt.plot(
             self.data_preparation_object.dataset_df['Years'][:len(self.data_preparation_object.x_train)],
@@ -56,7 +56,7 @@ class Additif:
             self.data_preparation_object.dataset_df['Years'][len(self.data_preparation_object.x_train):],
             y_test_predicted, "r-", label='Predicted Test Sales')
 
-        # Tracer l'intervalle de confiance
+     
         plt.fill_between(self.data_preparation_object.dataset_df['Years'][len(self.data_preparation_object.x_train):],
                          min_interval, max_interval,
                          color="lightgray", alpha=0.5, label="95% Confidence Interval")
