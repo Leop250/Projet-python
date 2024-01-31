@@ -35,10 +35,10 @@ class Additif:
         residuals = y_test_predicted - self.data_preparation_object.y_test
         std_residuals = np.std(residuals)
         n = len(y_test_predicted)
-        margin_of_error = 1.96 * (std_residuals / np.sqrt(n))  # 1.96 pour un intervalle de confiance de 95%
+        i = 1.96 * (std_residuals / np.sqrt(n))  # 1.96 pour un intervalle de confiance de 95%
 
-        min_interval = (y_test_predicted - margin_of_error).ravel()
-        max_interval = (y_test_predicted + margin_of_error).ravel()
+        min_interval = (y_test_predicted - i).ravel()
+        max_interval = (y_test_predicted + i).ravel()
 
         # Plot des prédictions et de l'intervalle de confiance
         plt.figure(figsize=(15, 6))
